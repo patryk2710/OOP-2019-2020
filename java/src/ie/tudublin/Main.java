@@ -14,5 +14,15 @@ public class Main
 
         Cat topcat = new Cat();
         topcat.speak();
+        topcat.setNumLives(9);
+
+        while (topcat.getNumLives() >= 0) {
+            topcat.kill();
+            if(topcat.getNumLives() == 0) {
+                topcat.kill();
+                break;
+            }
+
+        }
     }
 }
