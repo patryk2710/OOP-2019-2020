@@ -19,7 +19,7 @@ public class Loops extends PApplet
 		stroke(255);
 		int numLines = (int) (30 * (mouseX / (float) width)) ;
 		float gap = width / (float) numLines;
-		for(int i = 0 ; i <= numLines ; i ++)
+		for(int i = 0 ; i <= numLines ; i ++)	
 		{
 			float x = i * gap;
 			line(x, 0, width - x, height);
@@ -93,3 +93,5 @@ public class Loops extends PApplet
 		//loops3();
 	}
 }
+
+
