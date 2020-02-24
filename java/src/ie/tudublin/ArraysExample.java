@@ -62,17 +62,73 @@ public class ArraysExample extends PApplet
         float max = Collections.max(Arrays.asList(floatArray));
 	}
 
-	void drawBarChart()
-	{
-		float w = width / (float) rainFall.length;
-		float cGap = 255 / (float) rainFall.length;
-		noStroke();
-		colorMode(HSB);
-		for(int i = 0 ; i < rainFall.length ; i ++)
-		{
-			float x = i * w;
-			fill(i * cGap, 255, 255);
-			rect(x, height, w, -rainFall[i]);
+	// void drawBarChart()
+	// {
+	// 	float w = width / (float) rainFall.length;
+	// 	float cGap = 255 / (float) rainFall.length;
+	// 	noStroke();
+	// 	colorMode(HSB);
+	// 	for(int i = 0 ; i < rainFall.length ; i ++)
+	// 	{
+	// 		float x = i * w;
+	// 		fill(i * cGap, 255, 255);
+	// 		rect(x, height, w, -rainFall[i]);
+	// 	}
+	// }
+
+	public void drawlineGraph() {
+		stroke(255);
+		line(40, 20, 40, 460);
+		line(40, 460, 470, 460);
+		float hGap = (float)470 / (float)16;
+		float wGap = (float)470 / (float) months.length;
+		// for(int i = 0; i < rainFall.length; i++) {
+		// 	float x = i * hGap;
+		// 	x =+ 20;
+		// 	line(35, x, 40, x);
+		// }
+		int i = 0;
+		while (i < 16) {
+			float x = i * hGap;
+			x += 20;
+			line(35, x, 40, x);
+			i++;
+		}
+		i = 0;
+		int count = 150;
+		float y = hGap;
+		while(i < 16) {
+			float text = i * hGap;
+			text += 20;
+			text(count, 10, text);
+			count -= 10;
+			i++;
+		}
+		i = 0;
+		while (i < months.length) {
+			float x = i * wGap;
+			x += 40;
+			line(x, 460, x, 465);
+			i++;
+		}
+		i = 0;
+		while (i < months.length) {
+			float text = i * wGap;
+			text += 30;
+			text(months[i], text, 480);
+			i++; 
+		}
+		i = 0;
+		stroke(167,255,255);
+		while (i < 11) {
+			float value1 = map(rainFall[i],0,150,460,20);
+			float value2 = map(rainFall[i+1],0,150,460,20);
+			float x1 = i * wGap;
+			x1 += 40;
+			float x2 = (i+1) * wGap;
+			x2 += 40;
+			line(x1, value1, x2, value2);
+			i++;
 		}
 	}
 
@@ -89,6 +145,7 @@ public class ArraysExample extends PApplet
 		background(0);		
 		colorMode(HSB);	
 
-		drawBarChart();
+		//drawBarChart();
+		drawlineGraph();
 	}
 }
