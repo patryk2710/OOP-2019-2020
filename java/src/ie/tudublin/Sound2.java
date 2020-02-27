@@ -10,6 +10,8 @@ public class Sound2 extends PApplet
 
 	int frameSize = 1024;
 
+	float frameToSecond = 44100 / (float) frameSize;
+
 	public void settings()
 	{
 		size(1024, 500);
@@ -21,6 +23,18 @@ public class Sound2 extends PApplet
 		minim = new Minim(this);
 		as = minim.loadSample("scale.wav", frameSize);
 		colorMode(HSB);
+	}
+
+	public int countZeroCrossings() {
+		int count = 0;
+		for (int i = 1; i < as.bufferSize(); i++) 
+		{		  
+			if (as.left.get(i - 1) > 0 && as.left.get(i) <= 0) 
+			{
+			  count++;
+			}		  
+		}
+		return count;
 	}
 
 	float lerpedw = 0;
@@ -58,6 +72,18 @@ public class Sound2 extends PApplet
 			, 255
 		);
 		ellipse(400 , cy,w, w);
-		ellipse(600 , cy,lerpedw, lerpedw);		
-}
+		ellipse(600 , cy,lerpedw, lerpedw);	
+		
+		int count = countZeroCrossings();
+
+		float freq = count * frameToSecond;
+		textSize(22);
+		text(freq, 100, 50);
+
+		int circx = width / 2;
+		int circy = height / 2;
+		int radius = 500;
+
+
+	}
 }
