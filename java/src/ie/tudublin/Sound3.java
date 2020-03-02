@@ -3,7 +3,7 @@ package ie.tudublin;
 import processing.core.PApplet;
 import ddf.minim.*;
 
-public class Sound2 extends PApplet
+public class Sound3 extends PApplet
 {	
 	Minim minim;
 	AudioSample as;
@@ -21,23 +21,10 @@ public class Sound2 extends PApplet
 	public void setup() 
 	{
 		minim = new Minim(this);
-		as = minim.loadSample("scale.wav", frameSize);
+		as = minim.loadSample("heroplanet.mp3", frameSize);
 		colorMode(HSB);
 	}
 
-<<<<<<< HEAD
-	public int countZeroCrossings() {
-		int count = 0;
-		for (int i = 1; i < as.bufferSize(); i++) 
-		{		  
-			if (as.left.get(i - 1) > 0 && as.left.get(i) <= 0) 
-			{
-			  count++;
-			}		  
-		}
-		return count;
-	}
-=======
 	int countZeroCrossings()
 	{
 		int count = 0;
@@ -54,10 +41,7 @@ public class Sound2 extends PApplet
 
 	float lerpedw = 0;
 	float average = 0;
->>>>>>> 6af089ddab0d2d9e3233de67fdf24864f9f11eff
 
-	float lerpedw = 0;
-	float average = 0;
 	public void keyPressed()
 	{
 		if (key == ' ')
@@ -69,25 +53,28 @@ public class Sound2 extends PApplet
 	}
 
 	float offs = 0;
-	
-	public void circleVisual {
-		float circx = width / 2;
-		float circy = height / 2;
-		int radius = 500;
 
-		for(int i = 0 ; i < as.bufferSize() ; i ++) {
+	public void circleVisual()
+	{
+		strokeWeight(2);
+		float cx = width / 2;
+		float cy = height / 2;
+
+		for(int i = 0 ; i < as.bufferSize() ; i ++)
+		{
 			float theta = map(i, 0, as.bufferSize(), 0, TWO_PI);
-			float x = circx + sin(theta) * circx * abs(as.left.get(i));
-			float x = circx + sin(theta) * circx * abs(as.left.get(i));
+			float x = cx + sin(theta) * cx * abs(as.left.get(i));
+			float y = cy + cos(theta) * cx * abs(as.left.get(i));
 			stroke(
-				map(i + offs, 0, as.bufferSize()), 0, 255) % 255
-				, 255
-				, 255
+				map(i + offs, 0, as.bufferSize(), 0, 255) % 255
+				,255
+				,255
 			);
-			line(circx,circy, x, y);
+			line(cx, cy, x, y);
 		}
-		offs += average * 10f;
+		offs += average * 100f;		
 	}
+	
 	public void draw()
 	{	
 		background(0);		
@@ -101,7 +88,7 @@ public class Sound2 extends PApplet
 				, 255
 				, 255
 			);
-			line(i, cy, i, cy + as.left.get(i) * cy);
+			//line(i, cy, i, cy + ai.left.get(i) * cy);
 			sum += abs(as.left.get(i));
 		}
 		average = sum / as.bufferSize();
@@ -114,13 +101,8 @@ public class Sound2 extends PApplet
 			, 255
 			, 255
 		);
-<<<<<<< HEAD
-		// ellipse(400 , cy,w, w);
-		// ellipse(600 , cy,lerpedw, lerpedw);	
-=======
 		//ellipse(400 , cy,w, w);
 		//ellipse(600 , cy,lerpedw, lerpedw);	
->>>>>>> 6af089ddab0d2d9e3233de67fdf24864f9f11eff
 		
 		int count = countZeroCrossings();
 
@@ -128,10 +110,6 @@ public class Sound2 extends PApplet
 		textSize(22);
 		text(freq, 100, 50);
 
-<<<<<<< HEAD
 		circleVisual();
-		
-=======
->>>>>>> 6af089ddab0d2d9e3233de67fdf24864f9f11eff
 	}
 }
