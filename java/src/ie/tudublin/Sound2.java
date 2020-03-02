@@ -10,6 +10,8 @@ public class Sound2 extends PApplet
 
 	int frameSize = 1024;
 
+	float frameToSecond = 44100 / (float) frameSize;
+
 	public void settings()
 	{
 		size(1024, 500);
@@ -23,14 +25,44 @@ public class Sound2 extends PApplet
 		colorMode(HSB);
 	}
 
-	float lerpedw = 0;
+	public int countZeroCrossings() {
+		int count = 0;
+		for (int i = 1; i < as.bufferSize(); i++) 
+		{		  
+			if (as.left.get(i - 1) > 0 && as.left.get(i) <= 0) 
+			{
+			  count++;
+			}		  
+		}
+		return count;
+	}
 
+	float lerpedw = 0;
+	float average = 0;
 	public void keyPressed()
 	{
 		as.stop();
 		as.trigger();
 	}
 	
+	public void circleVisual {
+		float circx = width / 2;
+		float circy = height / 2;
+		int radius = 500;
+
+		for(int i = 0 ; i < as.bufferSize() ; i ++) {
+			float theta = map(i, 0, as.bufferSize(), 0, TWO_PI);
+			float x = circx + sin(theta) * circx * abs(as.left.get(i));
+			float x = circx + sin(theta) * circx * abs(as.left.get(i));
+			stroke(
+				map(i + offs, 0, as.bufferSize()), 0, 255) % 255
+				, 255
+				, 255
+			);
+			line(circx,circy, x, y);
+		}
+		offs += average * 10f;
+	}
 	public void draw()
 	{	
 		background(0);		
@@ -57,7 +89,16 @@ public class Sound2 extends PApplet
 			, 255
 			, 255
 		);
-		ellipse(400 , cy,w, w);
-		ellipse(600 , cy,lerpedw, lerpedw);		
-}
+		// ellipse(400 , cy,w, w);
+		// ellipse(600 , cy,lerpedw, lerpedw);	
+		
+		int count = countZeroCrossings();
+
+		float freq = count * frameToSecond;
+		textSize(22);
+		text(freq, 100, 50);
+
+		circleVisual();
+		
+	}
 }
